@@ -5,7 +5,7 @@ function [surfFeatures] = feature_extraction(imageData)
     % Create an empty cell array to store the SURF features
     surfFeatures = cell(numel(imageData), 1);
     
-    % Extract SURF features from each image
+    % Extract SURF features from each imagess
     for i = 1:numel(imageData)
         % Extract SURF features
         surfFeatures{i} = detectSURFFeatures(grayImageData{i});
