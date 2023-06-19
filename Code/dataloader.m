@@ -20,6 +20,6 @@ function [data_set,cam_data] = dataloader
     % Display the number of images loaded
     fprintf('Total images loaded: %d\n', numel(data_set));
     
-    cam_data = 0;
+    cam_data = 0; % Temporary, has to be implemented
 
 end
