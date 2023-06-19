@@ -14,5 +14,6 @@ function [surfFeatures] = feature_extraction(imageData)
     end
     
     % Display the number of images processed
+    % test
     fprintf('SIFT features extracted for %d images\n', numel(surfFeatures));
 end
