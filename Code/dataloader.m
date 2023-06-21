@@ -13,8 +13,7 @@ function [data_set,cam_data] = dataloader
     for i = 1:numel(fileList)
         % Construct the full file path
         filePath = fullfile(folderPath, fileList(i).name);
-        
-        % Read the image
+
         data_set{i} = imread(filePath);
     end
     
@@ -22,7 +21,7 @@ function [data_set,cam_data] = dataloader
     fprintf('Total images loaded: %d\n', numel(data_set));
     
     toc
-    
+
     cam_data = 0; % Temporary, has to be implemented
 
 end

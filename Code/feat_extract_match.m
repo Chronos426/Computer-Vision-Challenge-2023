@@ -28,7 +28,7 @@ function [matches] = feat_extract_match(imageData)
 
         % Perform feature matching with the remaining images
         for j = i+1:numImages
-            % Perform feature matching using nearest neighbor search
+
             [f1,v1] = extractFeatures(grayImageData{i},surfFeatures{i});
             [f2,v2] = extractFeatures(grayImageData{j},surfFeatures{j});
 
@@ -37,9 +37,6 @@ function [matches] = feat_extract_match(imageData)
             matchedPoints1 = v1(indexPairs(:,1));
             matchedPoints2 = v2(indexPairs(:,2));
 
-            % Store the matched keypoints
-%             matchedPoints1 = [matchedPoints1; surfFeatures{i}.Location(indexPairs(:, 1), :)];
-%             matchedPoints2 = [matchedPoints2; surfFeatures{i}.Location(indexPairs(indexPairs(:, 2), :)];
             matches{i,j} = struct('P1', matchedPoints1,'P2' , matchedPoints2);
         end
     end
