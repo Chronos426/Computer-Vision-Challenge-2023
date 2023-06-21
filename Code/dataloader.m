@@ -26,7 +26,7 @@ function [data_set,cam_data] = dataloader
     path = fullfile(folder, baseName);
     
     filecontent = readtable(path);
-    cam_data = filecontent(:,end-11:end); % This line works only for the eh3 data set
+    cam_data = table2array(filecontent(:,end-11:end)); % This line works only for the eh3 data set
 
     toc
 
