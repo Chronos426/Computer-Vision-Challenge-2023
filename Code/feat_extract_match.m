@@ -23,6 +23,10 @@ function [matches] = feat_extract_match(imageData)
 
     numImages = length(surfFeatures);
     matches = cell(numImages, numImages);
+    p = 0;
+    m = (numImages-1)/2*numImages;
+
+    fprintf('Number of matches to calculate %d \n', m);
     
     for i = 1:numImages
 
@@ -38,6 +42,8 @@ function [matches] = feat_extract_match(imageData)
             matchedPoints2 = v2(indexPairs(:,2));
 
             matches{i,j} = struct('P1', matchedPoints1,'P2' , matchedPoints2);
+            p = p + 1;
+            fprintf('Progress: %d%%\n', ceil((p / m)*100));
         end
     end
     fprintf('Features matched. \n');
