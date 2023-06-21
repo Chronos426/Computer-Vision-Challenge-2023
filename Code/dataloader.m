@@ -1,4 +1,5 @@
 function [data_set,cam_data] = dataloader
+%% Load the images
     % Prompt the user to select the folder containing the images
     folderPath = uigetdir('Select the folder containing the images');
     
@@ -16,12 +17,17 @@ function [data_set,cam_data] = dataloader
 
         data_set{i} = imread(filePath);
     end
-    
     % Display the number of images loaded
     fprintf('Total images loaded: %d\n', numel(data_set));
-    
-    toc
 
-    cam_data = 0; % Temporary, has to be implemented
+%% Load the Camera Parameters 
+
+    [baseName, folder] = uigetfile('*.txt', 'Select a text file');
+    path = fullfile(folder, baseName);
+    
+    filecontent = readtable(path);
+    cam_data = filecontent(:,end-11:end); % This line works only for the eh3 data set
+
+    toc
 
 end
