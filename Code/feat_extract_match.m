@@ -43,7 +43,7 @@ function [matches] = feat_extract_match(imageData)
             matches{i,j} = struct('P1', matchedPoints1,'P2' , matchedPoints2);
         end
     end
-    
+    fprintf('Features matched \n');
     toc
 
 end
