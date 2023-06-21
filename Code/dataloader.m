@@ -2,6 +2,7 @@ function [data_set,cam_data] = dataloader
     % Prompt the user to select the folder containing the images
     folderPath = uigetdir('Select the folder containing the images');
     
+    tic
     % Get a list of all files in the folder
     fileList = dir(fullfile(folderPath, '*.jpg')); 
     
@@ -19,6 +20,8 @@ function [data_set,cam_data] = dataloader
     
     % Display the number of images loaded
     fprintf('Total images loaded: %d\n', numel(data_set));
+    
+    toc
     
     cam_data = 0; % Temporary, has to be implemented
 
