@@ -34,24 +34,26 @@ params = [3410.3, 0, 3121.33; 0, 3409.98,2067.07; 0, 0, 1];
 % 3D reconstruction
 viewIDs = unique(pairs(:));
 views = cell(numel(viewIDs), 1);
+
 for i = 1:numel(viewIDs)
     viewIdx = viewIDs(i);
     view = struct();
     view.Points = matchedPoints{viewIdx, 1};
     view.ProjectionMatrix = params * [eye(3), zeros(3, 1)]; 
     views{i} = view;
+
 end
 
 % works till here, need to change bundleAdjustment function's input
 % accroding to documentation
-structure = bundleAdjustment(views, matchedPoints, params);
+% struct = bundleAdjustment(views, matchedPoints, params);
 
 % Refinement (optional)
-structure = refine3DStructure(structure, matchedPoints, params);
+% struct = refine3DStructure(struct, matchedPoints, params);
 
 % Display the 3D model
 figure;
-pcshow(structure.Points, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+pcshow(views.Points, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
 xlabel('X');
 ylabel('Y');
 zlabel('Z');
