@@ -39,6 +39,12 @@ for i = 1:numel(viewIDs)
     viewIdx = viewIDs(i);
     view = struct();
     view.Points = matchedPoints{viewIdx, 1};
+    
+    % Convert SURF points to XYZ coordinates
+    xyPoints = view.Points.Location;
+    xyzPoints = (params \ [xyPoints, ones(size(xyPoints, 1), 1)]')';
+    view.Points.Location = xyzPoints(:, 1:3);
+
     view.ProjectionMatrix = params * [eye(3), zeros(3, 1)]; 
     views{i} = view;
 
