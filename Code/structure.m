@@ -52,6 +52,7 @@ end
 % struct = refine3DStructure(struct, matchedPoints, params);
 
 % Display the 3D model
+% Surffpoints unable to display using pcshow, need to convert to xy-points
 figure;
 pcshow(views.Points, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
 xlabel('X');
