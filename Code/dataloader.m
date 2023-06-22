@@ -28,8 +28,8 @@ function [data_set,cam_data,im_data] = dataloader
 
     k = table2array(filecontent(2,end-5:end)); 
     K = [k(3) 0 k(5);0 k(4) k(6);0 0 1];
-    size = [k(1),k(2)];
-    cam_data = cameraParameters("K",K,"ImageSize",size);
+    sz = [k(1),k(2)];
+    cam_data = cameraParameters("K",K,"ImageSize",sz);
 
     %% Load the Image Parameters (Not sure how the format is)
     [baseName, folder] = uigetfile('*.txt', 'Select image txt');
@@ -43,7 +43,6 @@ function [data_set,cam_data,im_data] = dataloader
     for i = 1:sz
         im_data(content(i,1),:) = content(i,2:4);
     end
-
     toc
 
 end
