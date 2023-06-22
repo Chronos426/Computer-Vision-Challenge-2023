@@ -1,7 +1,7 @@
 clear all;
 
 % Image preprocessing
-imageDir = '/Users/xiaochuanma/Desktop/Computer-Vision-Challenge-2023/example_kicker/images';
+imageDir = '/MATLAB Drive/kicker/images/dslr_images_undistorted';
 imageFiles = dir(fullfile(imageDir)); % assuming JPEG images
 numImages = numel(imageFiles);
 images = cell(numImages, 1);
@@ -39,11 +39,15 @@ for i = 1:numel(viewIDs)
     viewIdx = viewIDs(i);
     view = struct();
     view.Points = matchedPoints{viewIdx, 1};
-    
     % Convert SURF points to XYZ coordinates
     xyPoints = view.Points.Location;
     xyzPoints = (params \ [xyPoints, ones(size(xyPoints, 1), 1)]')';
-    view.Points.Location = xyzPoints(:, 1:3);
+
+    % Shift XYZ coordinates to ensure positive values
+    minXYZ = min(xyzPoints(:, 1:3), [], 1);
+    xyzPoints = xyzPoints - minXYZ + 1;
+
+    view.Points = xyzPoints(:, 1:3);
 
     view.ProjectionMatrix = params * [eye(3), zeros(3, 1)]; 
     views{i} = view;
@@ -57,10 +61,15 @@ end
 % Refinement (optional)
 % struct = refine3DStructure(struct, matchedPoints, params);
 
+% Concatenate all points
+allPoints = cat(1, views{:}).Points;
+
+% Create point cloud object
+ptCloud = pointCloud(allPoints);
+
 % Display the 3D model
-% Surffpoints unable to display using pcshow, need to convert to xy-points
 figure;
-pcshow(views.Points, 'VerticalAxis', 'Y', 'VerticalAxisDir', 'Down');
+pcshow(ptCloud);
 xlabel('X');
 ylabel('Y');
 zlabel('Z');
