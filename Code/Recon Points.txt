@@ -1,0 +1,19 @@
+data = fopen("points3D.txt","r");
+formatString = '%f%f%f%f%f%f%f%f%f%[^\n]';
+dataPoints = textscan(data, formatString, 'HeaderLines', 3);
+fclose(data);
+
+pointIDs = dataPoints{1};
+X = dataPoints{2};
+Y = dataPoints{3};
+Z = dataPoints{4};
+R = dataPoints{5};
+G = dataPoints{6};
+B = dataPoints{7};
+
+scatter3(X, Y, Z, 10, [R, G, B]/255, 'filled');
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+title('3D Model with Tracks');
+
