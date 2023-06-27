@@ -1,4 +1,4 @@
-function [data_set,cam_data,im_data] = dataloader
+    function [data_set,cam_data,im_data] = dataloader
 %% Load the images
     % Prompt the user to select the folder containing the images
     folderPath = uigetdir('Select the folder containing the images');
@@ -26,12 +26,11 @@ function [data_set,cam_data,im_data] = dataloader
     path = fullfile(folder, baseName);
     filecontent = readtable(path);
 
-    k = table2array(filecontent(2,end-5:end)); 
-    K = [k(3) 0 k(5);0 k(4) k(6);0 0 1];
+    k = table2array(filecontent(2,3:end));
+    IntrinsicMatrix = [k(3) 0 k(5); 0 k(4) k(6); 0 0 1];
     sz = [k(1),k(2)];
-    cam_data = cameraParameters("K",K,"ImageSize",sz);
-
-    %% Load the Image Parameters (Not sure how the format is)
+    cam_data = cameraParameters('IntrinsicMatrix',IntrinsicMatrix, 'ImageSize',sz);
+     %% Load the Image Parameters (Not sure how the format is)
     [baseName, folder] = uigetfile('*.txt', 'Select image txt');
     path = fullfile(folder, baseName);
     filecontent = readtable(path);
