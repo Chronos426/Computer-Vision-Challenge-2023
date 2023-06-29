@@ -7,6 +7,7 @@ function [reconstructed_points, inlierIdx] = reconstruct(data_set, matches, cam_
     inlierIdx = cell(numImages, numImages);
     
     cameraPose1 = rigidtform3d(eye(3), [0; 0; 0]);
+    cameraPose2 = rigidtform3d(eye(3), [0; 0; 0]);
     
     for i = 1:numImages-1
         % Estimate the fundamental matrix
@@ -17,8 +18,8 @@ function [reconstructed_points, inlierIdx] = reconstruct(data_set, matches, cam_
         relPose = estrelpose(E,cam_data.Intrinsics,matches{i,i+1}.P1(inliers, :), ...
             matches{i,i+1}.P2(inliers, :));
         
-        % Perform triangulation
-        cameraPose1 = cameraPose1;
+        % Perform triangulationn
+        cameraPose1 = cameraPose2;
         cameraPose2 = [cameraPose1.R * relPose.R, cameraPose1.Translation + relPose.Translation];
         [worldPoints{i}, err, valid] = triangulate(matches{i,i+1}.P1(inliers, :), ...
             matches{i,i+1}.P2(inliers, :), cameraPose1, cameraPose2);
