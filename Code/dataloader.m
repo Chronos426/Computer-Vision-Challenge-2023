@@ -28,7 +28,7 @@
 
     k = table2array(filecontent(2,3:end));
     IntrinsicMatrix = [k(3) 0 k(5); 0 k(4) k(6); 0 0 1];
-    sz = [k(1),k(2)];
+    sz = [k(2),k(1)];
     try
         cam_data = cameraParameters('K',IntrinsicMatrix,'ImageSize',sz);
     catch
