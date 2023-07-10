@@ -70,7 +70,7 @@ function [xyzPoints,errors] = reconstruction(data_set, cam_data)
 
         % Add computed features and relative pose to the view set
         vSet = addView(vSet,i, cameraPoses(i), 'Points', points);
-        vSet = addConnection(vSet, i-1, i,relPose(1,1), 'Matches', pairsIdx);
+        vSet = addConnection(vSet, i-1, i, 'Matches', pairsIdx);
 
         % Update the features and points for the next iteration
         featuresPrev = features;
@@ -86,12 +86,13 @@ function [xyzPoints,errors] = reconstruction(data_set, cam_data)
     % Reconstruct the 3D scene
     [xyzPoints, errors] = triangulateMultiview(tracks, cameraPoses, cam_data.Intrinsics);
 
+    % Perform bundle adjustment
+    [xyzPoints, cameraPoses] = bundleAdjustment(xyzPoints, tracks, cameraPoses, cam_data.Intrinsics, 'AbsoluteTolerance', 1e-9, 'RelativeTolerance', 1e-9, 'MaxIterations', 500);
+ 
     % Filter 3D points using error metrics and depth constraints
-
     x = xyzPoints(:,1);
     y = xyzPoints(:,2);
-    z = xyzPoints(:,3);
-    
+    z = xyzPoints(:,3);    
     idx = errors < 10 & z > 0 & z < 20 & x > -40 & x < 40 & y > -40 & y < 40;
     xyzPoints = xyzPoints(idx, :);
     
