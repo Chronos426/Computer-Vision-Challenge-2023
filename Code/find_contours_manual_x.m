@@ -1,4 +1,4 @@
-function find_contours_manual_y(data)
+function find_contours_manual_x(data)
 % FIND_CONTOURS Import point cloud
 x_3d = data(:, 1);
 y_3d = data(:, 2);
@@ -12,7 +12,7 @@ referenceVector_y = [0,1,0];
 referenceVector_z = [0,0,1];
 maxAngularDistance = 5;
 [model1,inlierIndices_1,outlierIndices_1] = pcfitplane(ptCloud,...
-         maxDistance,referenceVector_y,maxAngularDistance);
+         maxDistance,referenceVector_x,maxAngularDistance);
 plane1 = select(ptCloud,inlierIndices_1);
 
 % % Show original point cloud
