@@ -1,4 +1,4 @@
-function find_contours_manual(data)
+function find_contours_manual_z(data)
 % FIND_CONTOURS Import point cloud
 x_3d = data(:, 1);
 y_3d = data(:, 2);
