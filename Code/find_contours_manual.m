@@ -86,4 +86,20 @@ xlabel('X');
 ylabel('Y');
 zlabel('Z');
 view(3);
+
+% User selection of two points
+disp('Please click on two points on the figure to measure the distance.');
+[x_sel, y_sel] = ginput(2);
+hold on;
+plot(x_sel, y_sel, 'ro');  % plot the selected points
+
+% Calculate and display the distance between the selected points
+distance = sqrt((x_sel(2) - x_sel(1))^2 + (y_sel(2) - y_sel(1))^2);
+
+% Print the distance on the figure
+midpoint_x = (x_sel(2) + x_sel(1)) / 2;
+midpoint_y = (y_sel(2) + y_sel(1)) / 2;
+text(midpoint_x, midpoint_y, 0, ['Distance = ', num2str(distance)], 'Color', 'r');
+
+hold off;
 end
